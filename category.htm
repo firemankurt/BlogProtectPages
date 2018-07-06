@@ -1,0 +1,34 @@
+title = "NewsCategory"
+url = "/news/category/:slug/:page?1"
+layout = "default"
+is_hidden = "0"
+
+[PblogCategories]
+slug = "{{ :slug }}"
+displayEmpty = "0"
+categoryPage = "news/category"
+
+[PblogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "{{ :slug }}"
+postsPerPage = "10"
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "news/category"
+postPage = "news/story"
+==
+<?php
+function onEnd()
+{
+    $this->page->title =$this['posts'][0]['categories'][0]['name'];
+}
+?>
+==
+<div class="row">
+    <div class="col-sm-8">
+        {% component 'PblogPosts' %}
+    </div>
+    <div class="col-sm-4">
+        {% component 'PblogCategories' %}
+    </div>
+</div>
